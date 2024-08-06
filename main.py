@@ -29,13 +29,13 @@ pip3 install -r requirements.txt
 This will install the packages from the requirements.txt for this project.
 '''
 
-
+load_dotenv()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('FLASK_KEY')
 ckeditor = CKEditor(app)
 Bootstrap5(app)
 
-load_dotenv()
+
 
 # Configure Flask-Login
 login_manager = LoginManager()
@@ -60,7 +60,7 @@ gravatar = Gravatar(app,
 # CREATE DATABASE
 class Base(DeclarativeBase):
     pass
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DB_URI')
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
 
